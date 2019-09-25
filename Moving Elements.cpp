@@ -2,33 +2,57 @@
 #include <vector>
 using namespace std;
 
-
-void printQueue(vector<int> &queue)
+class Queue
 {
-	for (long long unsigned int i = 0 ; i < queue.size() ; i++)
+private:
+	vector<int> data;
+public:
+	int pop()
 	{
-		cout << queue[i] << " ";
+		int first = this -> data[0];
+		this -> data.erase(this -> data.begin());
+		return first;
 	}
-}
 
-void firstToEnd(vector<int> &queue)
-{
-	int first = queue[0];
-	queue.erase(queue.begin());
-	queue.push_back(first);
-}
+	void push(int data)
+	{
+		this -> data.push_back(data);
+	}
 
+	int front()
+	{
+		return this -> data.front();
+	}
+
+	void firstToEnd()
+	{
+		push(pop());
+	}
+
+	void printQueue()
+	{
+		for(long long unsigned int i = 0; i < this -> data.size() ; i++)
+		{
+			cout << this -> data[i] << " ";
+		}
+	}
+};
 
 int main()
 {
-	vector<int> queueOfInts = {5, 1, 2, 3, 4,};
-	cout << "Original Queue: ";
+	Queue QueueOfInts;
+	QueueOfInts.push(5);
+	QueueOfInts.push(1);
+	QueueOfInts.push(2);
+	QueueOfInts.push(3);
+	QueueOfInts.push(4);
 
-	printQueue(queueOfInts);
-	firstToEnd(queueOfInts);
+	cout << "Original Queue: ";
+	QueueOfInts.printQueue();
+	QueueOfInts.firstToEnd();
 
 	cout << "\nResulting Queue: ";
-	printQueue(queueOfInts);
+	QueueOfInts.printQueue();
 
 	return 0;
 
